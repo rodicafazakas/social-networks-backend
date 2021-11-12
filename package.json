@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "dev": "nodemon index -q",
+    "start": "node index",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -32,6 +34,7 @@
   "description": "",
   "devDependencies": {
     "@types/jest": "^27.0.2",
+    "eslint": "^8.2.0",
     "nodemon": "^2.0.15",
     "supertest": "^6.1.6"
   }
