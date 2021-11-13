@@ -11,13 +11,13 @@ const app = express();
 
 let server;
 const initializeServer = (port) => 
-  new Promise ( (resolve, reject) => {
+  new Promise((resolve, reject) => {
     server = app.listen(port, () => {
       debug(chalk.yellow(`Listerning to port ${port}`));
       resolve(server);
     });
 
-    server.on((error) => {
+    server.on("error",(error) => {
       debug(chalk.red("Error when initializing server"));
       if (error.code === "EADDRINUSE") {
         debug(chalk.red(`The port ${port} is in use`));
@@ -28,7 +28,7 @@ const initializeServer = (port) =>
 
 app.use(morgan("dev"));
 app.use(cors());
-app.use(express(json));
+app.use(express.json());
 
 app.use("./users", usersRoutes);
 

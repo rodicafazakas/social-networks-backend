@@ -1,6 +1,6 @@
 const debug = require("debug")("file:database:index");
 const chalk = require("chalk");
-const { mongoose } = require("mongoose");
+const mongoose = require("mongoose");
 
 const connectDB = (connectionString) =>
   new Promise ( (resolve, reject) => { 
@@ -26,6 +26,7 @@ const connectDB = (connectionString) =>
     debug(chalk.green("Successful connection"));
     resolve();
     });
+
   });
 
 module.exports = connectDB;

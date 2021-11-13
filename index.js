@@ -1,12 +1,16 @@
 require("dotenv").config();
 const debug = require("debug")("file:root:index");
-const chalk = require(chalk);
+const chalk = require("chalk");
+
 const connectDB = require("./database/index");
-const initializeServer =  require("./server/index");
+const {initializeServer} =  require("./server/index");
+const User = require("./database/models/User");
+const bcrypt = require("bcrypt");
+
 
 const port = process.env.PORT ?? 5000;
 
-( async () => {
+(async () => {
   try { 
     await connectDB(process.env.MONGODB_STRING);
     await initializeServer(port);
@@ -15,3 +19,4 @@ const port = process.env.PORT ?? 5000;
     process.exit(1);
   }
 })();
+
