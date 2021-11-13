@@ -30,7 +30,7 @@ app.use(morgan("dev"));
 app.use(cors());
 app.use(express.json());
 
-app.use("./users", usersRoutes);
+app.use("/users", usersRoutes);
 
 app.use(notFoundErrorHandler);
 app.use(generalErrorHandler);

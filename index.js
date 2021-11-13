@@ -20,3 +20,17 @@ const port = process.env.PORT ?? 5000;
   }
 })();
 
+// (async () => {
+//   debug(chalk.yellow("That's me."));
+//   User.create({
+//     name: "Rodi",
+//     username: "Rodipet",
+//     password: await bcrypt.hash("holalapa", 10),
+//     photo:
+//       "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/mulan-1543323141.jpg?crop=0.502xw:1.00xh;0.250xw,0&resize=640:*",
+//     enemies: [],
+//     friends: [],
+//     bio: "I have a mission",
+//   });
+// })();
+
