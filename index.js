@@ -2,7 +2,7 @@ require("dotenv").config();
 const debug = require("debug")("file:root:index");
 const chalk = require(chalk);
 const connectDB = require("./database/index");
-const initializeServer =  require("");
+const initializeServer =  require("./server/index");
 
 const port = process.env.PORT ?? 5000;
 
