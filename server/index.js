@@ -1,4 +1,3 @@
-
 const debug = require("debug")("file:server:index");
 const chalk = require("chalk");
 const express = require("express");
