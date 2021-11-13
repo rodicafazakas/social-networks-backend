@@ -7,9 +7,9 @@ const loginValidation = {
     name: Joi.string().required(),
     friends: Joi.array().items(Joi.object()).optional(),
     enemies: Joi.array().items(Joi.object()).optional(),
-    photos: Joi.string(),
+    photo: Joi.string(),
     bio: Joi.string().required(),
   })
 };
 
-modules.exports = loginValidation;
+module.exports = loginValidation;
