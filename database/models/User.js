@@ -16,12 +16,12 @@ const userSchema = new Schema({
   friends: {
     type: [Types.ObjectId],
     ref: "Users",
-    required: false,
+    default: [],
   },
   enemies: {
     type: [Types.ObjectId],
     ref: "Users",
-    required: false,
+    default: [],
   },
   photo: {
     type: String,

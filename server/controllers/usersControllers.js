@@ -10,6 +10,7 @@ const registerUser = async (req, res, next) => {
     const newUser = await User.create(req.body);
     res.json(newUser);
   } catch (error) {
+    debug(chalk.red(error));
     error.code = 400;
     error.message = "User registration failed";
     next(error);
@@ -20,9 +21,7 @@ const loginUser = async (req, res, next) => {
   const {username, password} = req.body;
   try {
     const user = await User.findOne({username});
-
     const rightPassword = await bcrypt.compare(password, user.password);
-    console.log(rightPassword);
     if (rightPassword) {
       const token = jwt.sign({username}, process.env.JWT_SECRET);
       res.json({token});
@@ -40,7 +39,7 @@ const loginUser = async (req, res, next) => {
 };
 
 const getUsers = async (req, res) => {
-  const users = await User.find({});
+  const users = await User.find();
   res.json(users);
 }
 
