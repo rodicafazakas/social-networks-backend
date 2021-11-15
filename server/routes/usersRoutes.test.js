@@ -3,9 +3,11 @@ const supertest = require("supertest");
 const debug = require("debug")("file:usersRoutes");
 const chalk = require("chalk");
 const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
 
 const { app, initializeServer } = require("..");
 const connectDB = require("../../database");
+const User = require("../../database/models/User");
 
 const request = supertest(app);
 
@@ -18,22 +20,21 @@ beforeAll( async () => {
 });
 
 beforeEach( async () => {
-  const {body} = await request
-    .post("/users/login")
-    .send({username: "Rodipet", password: "holalapa"})
-    .expect(200)
-  token = body.token;
   await User.deleteMany();
   await User.create({
     name: "testuser",
     username: "testuser",
-    password: "$2b$10$0nPwkVWmq3K/zKLs8PSvfuxuAJebcNuArOiJwEDvKha.X5Th9OyHq",
+    password: await bcrypt.hash("holalapa", 10),
     friends: [],
     enemies: [],
     photo: "",
-    bio: "",
-    _id: "61921b98cb148db19ead2e25"
+    bio: "jjj",
   });
+  const {body} = await request
+    .post("/users/login")
+    .send({username: "testuser", password: "holalapa"})
+    .expect(200)
+  token = body.token;
 });
 
 afterAll( (done) => {
@@ -47,9 +48,7 @@ describe("Given a /users router", () => {
 
   describe("When a GET request arrives without a token", () => {
     test("Then it should respond with a 401 error", async () => {
-      const {body} = await request.get("/users").expect(400);
-      const expectedError = { error: "Bad Request!"}; 
-      expect(body).toBe(error);  
+      await request.get("/users").expect(401);
     })
   });
 
@@ -61,7 +60,7 @@ describe("Given a /users router", () => {
           .set("Authorization", "Bearer "+token)
           .expect(200);
         
-        expect(body).toHaveLength(1);  
+        expect(body).toHaveLength(1);  //one document in the collection
      })
   });
 
