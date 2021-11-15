@@ -39,8 +39,33 @@ const loginUser = async (req, res, next) => {
 };
 
 const getUsers = async (req, res) => {
-  const users = await User.find();
-  res.json(users);
-}
+  try {
+    const users = await User.find();
+    res.json(users);
+  } catch {
+    const error = new Error ("Error loading the users");
+    next(error);
+  }
+};
 
-module.exports = {registerUser, loginUser, getUsers};
+const getUserById = async (req, res, next) => {
+  const  { id } = req.params;
+  try {
+   const searchedUser = await User.findById(id);
+   if (searchedUser) {
+     res.json(searchedUser);
+   } else {
+     const error = new Error("User not found");
+     error.code = 404;
+     next(error);
+   }
+  } catch (error) {
+    console.log(error);
+    error.code = 400;
+    error.message = "Bad request"; 
+    next(error);
+  }
+};
+
+
+module.exports = {registerUser, loginUser, getUsers, getUserById};

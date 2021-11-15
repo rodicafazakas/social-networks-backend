@@ -6,7 +6,8 @@ const loginValidation = require("../schemas/userSchema");
 const {
   registerUser,
   loginUser,
-  getUsers
+  getUsers,
+  getUserById,
 } = require("../controllers/usersControllers");
 
 
@@ -15,6 +16,7 @@ const usersRoutes = express.Router();
 usersRoutes.post("/register", registerUser)
 usersRoutes.post("/login", validate(loginValidation), loginUser);
 usersRoutes.get("/", auth, getUsers);
+usersRoutes.get("/:id", auth, getUserById);
 
 
 module.exports = usersRoutes;

@@ -16,7 +16,7 @@ const connectDB = (connectionString) =>
 
     mongoose.connection
     .on("open", () => {debug(chalk.yellow("The database connection is open"))})
-    .on("close", () => { debug(chal.yellow("The database connection is closed"))})
+    .on("close", () => { debug(chalk.yellow("The database connection is closed"))})
 
     mongoose.connect(connectionString, (error) => {
     if (error) {
